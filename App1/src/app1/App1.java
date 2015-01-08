@@ -15,7 +15,10 @@ public class App1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hola Mundo y todos quienes lo habitan");
+        for (;;) {
+            System.out.println("Hola Mundo y todos quienes lo habitan");
+        }
+
     }
-    
+
 }
