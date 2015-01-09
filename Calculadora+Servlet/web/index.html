@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>.::Calculadora y Servlets::.</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            
+            function SoloNumeros(e)
+            {
+                var keynum;
+                
+                if(window.event)
+                {
+                    keynum = e.keyCode;
+                    
+                }
+                else
+                {
+                    keynum = e.which;
+                }
+                
+                if(keynum>47 && keynum<58 || keynum === 08)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+        }
+            
+        </script>
+            
+    </head>
+    <body>
+        
+        <form action="Serv_Calc" method="GET">
+            
+            <input type="text" name="numa" placeholder="Numero A" required onkeypress="return SoloNumeros(event)"/>
+            <input type="text" name="numb" placeholder="Numero B" required/>
+            <br><br><br>
+            Suma: <input type="radio" name="opt" value="Suma" checked="checked" /><br>
+            Resta: <input type="radio" name="opt" value="Resta" /><br>
+            Multiplicacion: <input type="radio" name="opt" value="Multiplicacion" /><br>
+            Division: <input type="radio" name="opt" value="Division" /><br>
+            
+            <br><br>
+            <input type="submit" value="Enviar Consulta" />
+        </form>
+        
+    </body>
+</html>
