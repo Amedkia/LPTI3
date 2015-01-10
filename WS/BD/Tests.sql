@@ -2,6 +2,10 @@ call sp_altaimg(5,"Test","Acceso");
 
 call sp_getimg(21);
 
+call sp_altausuario("jerry2","123","Misa");
 
-select * from tbl_image;
-delete from tbl_image where id_img = 21;
+call sp_login('jerry2','123');
+
+select * from tbl_user;
+
+
