@@ -7,7 +7,7 @@ id_usr int(10),
 nombre_img varchar(100),
 estatus varchar(20));
 
-desc tbl_image;
+#desc tbl_image;
 
 create table tbl_user(
 id_usr int(10),
