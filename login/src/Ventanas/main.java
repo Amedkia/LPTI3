@@ -34,7 +34,7 @@ public class main extends JFrame implements ActionListener {
         JRadioButton op1 = new JRadioButton("Si");
         JRadioButton op2 = new JRadioButton("No");
        
-       int sexx = 0;
+      String sexx;
        
        final Color fondo = new Color(0,200,200); //Todos los colores de fondo ;)
     
@@ -124,7 +124,9 @@ public class main extends JFrame implements ActionListener {
              sexo.setBackground(fondo);
              f.add(sexo);
              
-             sexx = sexo.getSelectedIndex();
+             int sel;
+             
+             sel = sexo.getSelectedIndex();
              
              
         } catch (SQLException ex) {
