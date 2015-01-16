@@ -46,7 +46,7 @@ public class cDatos {
     public cDatos() {
         //poner los datos apropiados
         this.usrBD = "root";
-        this.passBD = "n0m3l0";
+        this.passBD = "";
         this.urlBD = "jdbc:mysql://127.0.0.1:3306/bd_form";//Si Somos huevones le cambiamos la BD xD
         this.driverClassName = "com.mysql.jdbc.Driver";
     }
