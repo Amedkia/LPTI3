@@ -16,21 +16,64 @@
  */
 package XML;
 
+import java.io.StringReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  *
  * @author Alumno
  */
 public class xml {
-    
-    public String[] llena ()
-    {
+
+    public void creaXML() {
+        try {
+            DocumentBuilderFactory creadorXML = DocumentBuilderFactory.newInstance();
+            DocumentBuilder creadorDocumento = creadorXML.newDocumentBuilder();
+            Document documento;
+
+            String strXML = "";
+            try {
+                BD.cDatos base = new BD.cDatos();
+                base.conectar();
+
+                ResultSet rs = base.consulta("call sp_sexo");
+
+                strXML += "<raiz>";
+
+                while (rs.next()) {
+                    strXML += "<genero>" + rs.getString("sex") + "</genero>";
+                }
+                strXML += "</raiz>";
+                
+                //Me crea un hermoso String que parece XML
+                System.out.println(strXML);
+
+                InputSource is = new InputSource();
+                is.setCharacterStream(new StringReader(strXML));
+                documento = creadorDocumento.parse(is);
+
+            } catch (SAXException ex) {
+                System.out.println("SAXException: " + ex.toString());
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+       
+    }
+
+    public String[] llenaCombo() {
         String[] datos = null;
-        
-        
-                //Llenado dinamico del comboBox
+
+        //Llenado dinamico del comboBox
         String valor = "";
         try {
             BD.cDatos base = new BD.cDatos();
@@ -44,14 +87,12 @@ public class xml {
 
             datos = valor.split(",");
 
-           
         } catch (SQLException ex) {
-            System.out.println("SQL ERROR: "+ex.toString());
+            System.out.println("SQL ERROR: " + ex.toString());
         }
 
         //Termina llenado de combo...
-        
         return datos;
     }
-    
+
 }

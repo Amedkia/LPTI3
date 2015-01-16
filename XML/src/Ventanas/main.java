@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -106,8 +105,11 @@ public class main extends JFrame implements ActionListener {
         f.add(envia);
         
         //YA ESTA EN CLASES!!
-        XML.xml data = new XML.xml();       
-        String[] abc = data.llena();
+        XML.xml data = new XML.xml();
+        data.creaXML();
+        
+        //Al momento lo llena con la funcion espero terminar para llenar con XML....
+        String[] abc = data.llenaCombo();
         
         
             sexo = new JComboBox(abc);
