@@ -31,7 +31,7 @@ public class main extends JFrame implements ActionListener {
     JTextField Ap = new JTextField();
     JTextField Am = new JTextField();
     ButtonGroup group = new ButtonGroup();
-    JRadioButton op1 = new JRadioButton("Si");
+    JRadioButton op1 = new JRadioButton("Si",true);
     JRadioButton op2 = new JRadioButton("No");
     JComboBox sexo;
 
@@ -81,30 +81,7 @@ public class main extends JFrame implements ActionListener {
 
         op2.setBounds(200, 250, 50, 30);
 
-        //Llenado dinamico del comboBox
-        String valor = "";
-        try {
-            BD.cDatos base = new BD.cDatos();
-            base.conectar();
 
-            ResultSet rs = base.consulta("call sp_sexo");
-
-            while (rs.next()) {
-                valor += rs.getString("sex") + ",";
-            }
-
-            String[] abc = valor.toString().split(",");
-
-            sexo = new JComboBox(abc);
-            sexo.setBounds(200, 300, 150, 30);
-            sexo.setBackground(fondo);
-            f.add(sexo);
-
-        } catch (SQLException ex) {
-            System.out.println(ex.toString());
-        }
-
-        //Termina llenado de combo...
 //        String[] v = {"Masculino","Femenino"};
         op1.setBackground(fondo);
         op2.setBackground(fondo);
@@ -127,6 +104,31 @@ public class main extends JFrame implements ActionListener {
         f.add(genero);
 
         f.add(envia);
+        
+                //Llenado dinamico del comboBox
+        String valor = "";
+        try {
+            BD.cDatos base = new BD.cDatos();
+            base.conectar();
+
+            ResultSet rs = base.consulta("call sp_sexo");
+
+            while (rs.next()) {
+                valor += rs.getString("sex") + ",";
+            }
+
+            String[] abc = valor.toString().split(",");
+
+            sexo = new JComboBox(abc);
+            sexo.setBounds(200, 300, 150, 30);
+            sexo.setBackground(fondo);
+            f.add(sexo);
+
+        } catch (SQLException ex) {
+            System.out.println("SQL ERROR: "+ex.toString());
+        }
+
+        //Termina llenado de combo...
 
         envia.addActionListener(this);
 
@@ -143,7 +145,7 @@ public class main extends JFrame implements ActionListener {
             am = Am.getText();
             sexx = (String) sexo.getSelectedItem();
             
-            if(!nom.equals("")||!ap.equals("")||!am.equals(""))
+            if(!nom.equals("")&&!ap.equals("")&&!am.equals(""))
             {
                         if (op1.isSelected()) {
                         enf = "Si";
@@ -172,13 +174,15 @@ public class main extends JFrame implements ActionListener {
                     nombre.setText("");
                     Ap.setText("");
                     Am.setText("");
+                    sexo.setSelectedIndex(0);
+                    op1.setSelected(true);
                     
                 
             }//End Validación 
             else
             {
                 
-                JOptionPane.showMessageDialog(this,"Ingrese datos","I/O ERROR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Ingrese mas datos","I/O ERROR",JOptionPane.ERROR_MESSAGE);
                     
                 
             }
