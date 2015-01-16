@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -141,33 +142,50 @@ public class main extends JFrame implements ActionListener {
             ap = Ap.getText();
             am = Am.getText();
             sexx = (String) sexo.getSelectedItem();
+            
+            if(!nom.equals("")||!ap.equals("")||!am.equals(""))
+            {
+                        if (op1.isSelected()) {
+                        enf = "Si";
+                    } else {
+                        enf = "No";
 
-            if (op1.isSelected()) {
-                enf = "Si";
-            } else {
-                enf = "No";
+                    }
 
+                    try {
+                        BD.cDatos sql = new BD.cDatos();
+                        sql.conectar();
+
+                        sql.consulta("call sp_alta('" + nom + "','" + ap + "','" + am + "','" + enf + "','" + sexx + "')");
+
+                        sql.cierraConexion();
+                        
+                    JOptionPane.showMessageDialog(this,"Datos subidos exitosamente","Exito",JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.toString());
+                        
+                    JOptionPane.showMessageDialog(this,"Hay un error, checa la consola","SQL ERROR",JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    //Regresar JTextField's a ""
+                    nombre.setText("");
+                    Ap.setText("");
+                    Am.setText("");
+                    
+                
+            }//End Validación 
+            else
+            {
+                
+                JOptionPane.showMessageDialog(this,"Ingrese datos","I/O ERROR",JOptionPane.ERROR_MESSAGE);
+                    
+                
             }
 
-            try {
-                BD.cDatos sql = new BD.cDatos();
-                sql.conectar();
+            
+        }//end If Get Source
 
-                sql.consulta("call sp_alta('" + nom + "','" + ap + "','" + am + "','" + enf + "','" + sexx + "')");
+    }//End ActionPerformed
 
-                sql.cierraConexion();
-
-            } catch (SQLException ex) {
-                System.out.println(ex.toString());
-            }
-
-            //Regresar JTextField's a ""
-            nombre.setText("");
-            Ap.setText("");
-            Am.setText("");
-
-        }
-
-    }
-
-}
+}//End Class
