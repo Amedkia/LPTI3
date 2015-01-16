@@ -32,6 +32,7 @@ public class main extends JFrame implements ActionListener {
     ButtonGroup group = new ButtonGroup();
     JRadioButton op1 = new JRadioButton("Si");
     JRadioButton op2 = new JRadioButton("No");
+    JComboBox sexo;
 
     String sexx;
 
@@ -93,12 +94,10 @@ public class main extends JFrame implements ActionListener {
 
             String[] abc = valor.toString().split(",");
 
-            JComboBox sexo = new JComboBox(abc);
+            sexo = new JComboBox(abc);
             sexo.setBounds(200, 300, 150, 30);
             sexo.setBackground(fondo);
             f.add(sexo);
-
-            sexx = (String) sexo.getSelectedItem();
 
         } catch (SQLException ex) {
             System.out.println(ex.toString());
@@ -141,6 +140,7 @@ public class main extends JFrame implements ActionListener {
             nom = nombre.getText();
             ap = Ap.getText();
             am = Am.getText();
+            sexx = (String) sexo.getSelectedItem();
 
             if (op1.isSelected()) {
                 enf = "Si";
