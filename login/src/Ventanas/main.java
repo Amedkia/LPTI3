@@ -41,7 +41,7 @@ public class main extends JFrame implements ActionListener {
 
     public main() {
 
-        System.out.println("Desplegando");
+        System.out.println("Aguantalas...");
 
         JFrame content = new JFrame();
         content.setBounds(100, 100, 600, 500);
