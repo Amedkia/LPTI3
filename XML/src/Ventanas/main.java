@@ -30,13 +30,13 @@ public class main extends JFrame implements ActionListener {
     JTextField Ap = new JTextField();
     JTextField Am = new JTextField();
     ButtonGroup group = new ButtonGroup();
-    JRadioButton op1 = new JRadioButton("Si",true);
+    JRadioButton op1 = new JRadioButton("Si", true);
     JRadioButton op2 = new JRadioButton("No");
     JComboBox sexo;
 
     String sexx;
 
-    final Color fondo = new Color(0, 200, 200); //Todos los colores de fondo ;)
+    final Color fondo = new Color(0, 220, 200); //Todos los colores de fondo ;)
 
     public main() {
 
@@ -80,7 +80,6 @@ public class main extends JFrame implements ActionListener {
 
         op2.setBounds(200, 250, 50, 30);
 
-
 //        String[] v = {"Masculino","Femenino"};
         op1.setBackground(fondo);
         op2.setBackground(fondo);
@@ -103,20 +102,17 @@ public class main extends JFrame implements ActionListener {
         f.add(genero);
 
         f.add(envia);
-        
+
         //YA ESTA EN CLASES!!
         XML.xml data = new XML.xml();
-        data.creaXML();
-        
-        //Al momento lo llena con la funcion espero terminar para llenar con XML....
-        String[] abc = data.llenaCombo();
-        
-        
-            sexo = new JComboBox(abc);
-            sexo.setBounds(200, 300, 150, 30);
-            sexo.setBackground(fondo);
-            f.add(sexo);
 
+        //Al momento lo llena con la funcion espero terminar para llenar con XML....
+        String[] abc = data.creaXML();
+
+        sexo = new JComboBox(abc);
+        sexo.setBounds(200, 300, 150, 30);
+        sexo.setBackground(fondo);
+        f.add(sexo);
 
         envia.addActionListener(this);
 
@@ -132,50 +128,45 @@ public class main extends JFrame implements ActionListener {
             ap = Ap.getText();
             am = Am.getText();
             sexx = (String) sexo.getSelectedItem();
-            
-            if(!nom.equals("")&&!ap.equals("")&&!am.equals(""))
-            {
-                        if (op1.isSelected()) {
-                        enf = "Si";
-                    } else {
-                        enf = "No";
 
-                    }
+            if (!nom.equals("") && !ap.equals("") && !am.equals("")) {
+                if (op1.isSelected()) {
+                    enf = "Si";
+                } else {
+                    enf = "No";
 
-                    try {
-                        BD.cDatos sql = new BD.cDatos();
-                        sql.conectar();
+                }
 
-                        sql.consulta("call sp_alta('" + nom + "','" + ap + "','" + am + "','" + enf + "','" + sexx + "')");
+                try {
+                    BD.cDatos sql = new BD.cDatos();
+                    sql.conectar();
 
-                        sql.cierraConexion();
-                        
-                    JOptionPane.showMessageDialog(this,"Datos subidos exitosamente","Exito",JOptionPane.INFORMATION_MESSAGE);
+                    sql.consulta("call sp_alta('" + nom + "','" + ap + "','" + am + "','" + enf + "','" + sexx + "')");
 
-                    } catch (SQLException ex) {
-                        System.out.println(ex.toString());
-                        
-                    JOptionPane.showMessageDialog(this,"Hay un error, checa la consola","SQL ERROR",JOptionPane.ERROR_MESSAGE);
-                    }
+                    sql.cierraConexion();
 
-                    //Regresar JTextField's a ""
-                    nombre.setText("");
-                    Ap.setText("");
-                    Am.setText("");
-                    sexo.setSelectedIndex(0);
-                    op1.setSelected(true);
-                    
-                
+                    JOptionPane.showMessageDialog(this, "Datos subidos exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.toString());
+
+                    JOptionPane.showMessageDialog(this, "Hay un error, checa la consola", "SQL ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+
+                //Regresar JTextField's a ""
+                nombre.setText("");
+                Ap.setText("");
+                Am.setText("");
+                sexo.setSelectedIndex(0);
+                op1.setSelected(true);
+
             }//End Validación 
-            else
-            {
-                
-                JOptionPane.showMessageDialog(this,"Ingrese mas datos","I/O ERROR",JOptionPane.ERROR_MESSAGE);
-                    
-                
+            else {
+
+                JOptionPane.showMessageDialog(this, "Ingrese mas datos", "I/O ERROR", JOptionPane.ERROR_MESSAGE);
+
             }
 
-            
         }//end If Get Source
 
     }//End ActionPerformed

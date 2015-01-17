@@ -23,6 +23,9 @@ import java.sql.SQLException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -32,7 +35,9 @@ import org.xml.sax.SAXException;
  */
 public class xml {
 
-    public void creaXML() {
+    public String[] creaXML() {
+
+        String[] datos = null;
         try {
             DocumentBuilderFactory creadorXML = DocumentBuilderFactory.newInstance();
             DocumentBuilder creadorDocumento = creadorXML.newDocumentBuilder();
@@ -51,14 +56,26 @@ public class xml {
                     strXML += "<genero>" + rs.getString("sex") + "</genero>";
                 }
                 strXML += "</raiz>";
-                
+
                 //Me crea un hermoso String que parece XML
                 System.out.println(strXML);
 
+                String xl = "";
                 InputSource is = new InputSource();
                 is.setCharacterStream(new StringReader(strXML));
                 documento = creadorDocumento.parse(is);
 
+                Element raiz = documento.getDocumentElement();
+                NodeList listaGenero = raiz.getElementsByTagName("genero");
+                //Recorrer la lista de listaGenero
+                for (int i = 0; i < listaGenero.getLength(); i++) {
+
+                    xl += documento.getElementsByTagName("genero").item(i).getTextContent() + ",";
+
+                }
+                datos = xl.split(",");
+
+                //AGREGADOO
             } catch (SAXException ex) {
                 System.out.println("SAXException: " + ex.toString());
             }
@@ -66,33 +83,33 @@ public class xml {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-        
-       
-    }
 
-    public String[] llenaCombo() {
-        String[] datos = null;
-
-        //Llenado dinamico del comboBox
-        String valor = "";
-        try {
-            BD.cDatos base = new BD.cDatos();
-            base.conectar();
-
-            ResultSet rs = base.consulta("call sp_sexo");
-
-            while (rs.next()) {
-                valor += rs.getString("sex") + ",";
-            }
-
-            datos = valor.split(",");
-
-        } catch (SQLException ex) {
-            System.out.println("SQL ERROR: " + ex.toString());
-        }
-
-        //Termina llenado de combo...
         return datos;
+
     }
 
+//    public String[] llenaCombo() {
+//        String[] datos = null;
+//
+//        //Llenado dinamico del comboBox
+//        String valor = "";
+//        try {
+//            BD.cDatos base = new BD.cDatos();
+//            base.conectar();
+//
+//            ResultSet rs = base.consulta("call sp_sexo");
+//
+//            while (rs.next()) {
+//                valor += rs.getString("sex") + ",";
+//            }
+//
+//             datos = valor.split(",");
+//
+//        } catch (SQLException ex) {
+//            System.out.println("SQL ERROR: " + ex.toString());
+//        }
+//
+//        //Termina llenado de combo...
+//        return datos;
+//    }
 }
