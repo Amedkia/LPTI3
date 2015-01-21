@@ -33,6 +33,9 @@ public class xml extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+            String raiz = request.getParameter("raiz");
+            String hijo = request.getParameter("hijo");
             /* TODO output your page here. You may use following sample code. */
             String strXML = "";
             try {
@@ -41,12 +44,12 @@ public class xml extends HttpServlet {
 
                 ResultSet rs = base.consulta("call sp_sexo");
 
-                strXML += "<raiz>";
+                strXML += "<"+raiz+">";
 
                 while (rs.next()) {
-                    strXML += "<genero>" + rs.getString("sex") + "</genero>";
+                    strXML += "<"+hijo+">" + rs.getString("sex") + "</"+hijo+">";
                 }
-                strXML += "</raiz>";
+                strXML += "</"+raiz+">";
                 
                 out.println(strXML);
             }
