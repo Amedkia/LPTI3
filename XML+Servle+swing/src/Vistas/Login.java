@@ -106,7 +106,9 @@ public class Login extends JFrame implements ActionListener {
         
         
         data.servlets datos = new data.servlets();
-        String[] abc = null;
+        
+        
+        String[] abc = datos.llena_combo("root","son");
 
         sexo = new JComboBox(abc);
         sexo.setBounds(200, 300, 150, 30);
