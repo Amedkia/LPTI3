@@ -9,7 +9,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,6 +23,12 @@ public class login extends JFrame implements ActionListener {
     
     final Color fondo = new Color(50, 230, 100);
 
+        JButton entrar = new JButton("Entrar");
+        JTextField usr = new JTextField();
+        JLabel lbl_usr = new JLabel();
+        
+        
+        
     public login() {
 
         System.out.println("Aguantalas...");

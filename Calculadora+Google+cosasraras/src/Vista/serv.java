@@ -69,7 +69,7 @@ public class serv extends JFrame implements ActionListener {
             System.out.println("Algo raro pasa");
             try {
 
-                Desktop.getDesktop().browse(new URI("http://localhost:8080/OtroServlet/servlet?op=3"));
+                Desktop.getDesktop().browse(new URI("http://localhost:8080/calculadora_cosasraras/servlet?op=3"));
 
             } catch (URISyntaxException | IOException ex) {
 
