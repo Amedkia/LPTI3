@@ -42,7 +42,15 @@ public class servlet extends HttpServlet {
 
                 switch (opcion) {
                     case "1":
-                        out.println("Creamos Formulario");
+                        URL url2 = new URL("http://www.easysoft.esy.es/");
+                        BufferedReader in2 = new BufferedReader(
+                                new InputStreamReader(url2.openStream()));
+
+                        String inputLine2;
+                        while ((inputLine2 = in2.readLine()) != null) {
+                            out.println(inputLine2);
+                        }
+                        in2.close();
                         break;
 
                     case "2":
