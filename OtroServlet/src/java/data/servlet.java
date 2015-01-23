@@ -49,6 +49,7 @@ public class servlet extends HttpServlet {
                         String inputLine2;
                         while ((inputLine2 = in2.readLine()) != null) {
                             out.println(inputLine2);
+                            System.out.println(inputLine2);
                         }
                         in2.close();
                         break;
