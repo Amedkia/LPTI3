@@ -5,8 +5,11 @@
  */
 package data;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,41 +35,45 @@ public class servlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
+
             String opcion = request.getParameter("op");
-            
+
             if (opcion != null) {
-                
-                switch(opcion)
-                {
+
+                switch (opcion) {
                     case "1":
                         out.println("Creamos Formulario");
-                            break;
-                        
+                        break;
+
                     case "2":
                         out.println("Mandar a otro fucking servlet");
-                        
-                        
-                            break;
-                        
+
+                        break;
+
                     case "3":
-                        out.println("Alguna otra madre...");
-                            break;
+
+                        URL url = new URL("https://www.facebook.com/");
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(url.openStream()));
+
+                        String inputLine;
+                        while ((inputLine = in.readLine()) != null) {
+                            out.println(inputLine);
+                        }
+                        in.close();
+                        break;
                 }
-                
-            }
-            else
-            {
+
+            } else {
                 out.println(SinOpcion());
                 //response.sendRedirect("http://localhost:8084/OtroServlet/servlet?op=1");
-                response.sendRedirect("http://192.168.1.149:8080/ServletXml/otroServlet");
+                //response.sendRedirect("http://192.168.1.149:8080/ServletXml/otroServlet");
             }
         }
     }
-    
-    public String SinOpcion()
-    {
-        String salida="Oshe selecciona algo";
+
+    public String SinOpcion() {
+        String salida = "Oshe selecciona algo";
         return salida;
     }
 
