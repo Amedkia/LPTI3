@@ -23,9 +23,10 @@ import javax.swing.JFrame;
 public class serv extends JFrame implements ActionListener {
 
     JButton fb = new JButton("A feisbukk");
-    JButton gogl = new JButton("A Guugle");
+    JButton gogl = new JButton("A IzziZoft");
     JButton otro = new JButton("A otro servlet");
     JButton regresa = new JButton("Esto es del diablo");
+    JFrame content = new JFrame();
 
     final Color fondo = new Color(50, 230, 100);
 
@@ -33,7 +34,7 @@ public class serv extends JFrame implements ActionListener {
 
         System.out.println("Aguantalas...");
 
-        JFrame content = new JFrame();
+        
         content.setBounds(100, 100, 600, 500);
         content.setVisible(true);
         content.setLayout(null);
@@ -106,7 +107,7 @@ public class serv extends JFrame implements ActionListener {
         if (e.getSource() == regresa) {
             System.out.println("Algo raro pasa");
 
-            this.dispose();
+           content.dispose();
             Calculadora c = new Calculadora();
         }
     }
