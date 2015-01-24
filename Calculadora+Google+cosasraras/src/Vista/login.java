@@ -7,8 +7,12 @@ package Vista;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -100,6 +104,19 @@ public class login extends JFrame implements ActionListener {
             else
             {
                 JOptionPane.showMessageDialog(content, "Error");
+            }
+        }
+        
+        if(e.getSource()==reg)
+        {
+             try {
+
+                Desktop.getDesktop().browse(new URI("http://localhost:8080/calculadora_cosasraras/reg.html"));
+
+            } catch (URISyntaxException | IOException ex) {
+
+                System.out.println(ex);
+
             }
         }
 
