@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -82,6 +83,25 @@ public class login extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource()==entrar)
+        {
+            String u = usr.getText();
+            String p = pwd.getText();
+            logic.login entra = new logic.login();
+            
+            boolean ok = entra.ingresa(u,p);
+            
+            if(ok)
+            {
+                content.dispose();
+                Calculadora cal = new Calculadora();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(content, "Error");
+            }
+        }
 
     }
 
