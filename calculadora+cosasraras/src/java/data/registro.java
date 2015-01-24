@@ -7,6 +7,7 @@ package data;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,9 +50,24 @@ public class registro extends HttpServlet {
             try {
                 sql.conectar();
                 
-                sql.consulta("call sp_alta('"+u+"','"+p+"','"+a+"')");
+                ResultSet rs = sql.consulta("call sp_alta('"+u+"','"+p+"','"+a+"')");
                 
-                out.print("<h2> Registro exitoso :D </h2>");
+                if(rs.next())
+                {
+                    String id = rs.getString("id_getted");
+                    
+                    if(id.equals("Ya existe el usuario"))
+                    {
+                        out.print("<h2> El usuario ya esta registrado </h2>");
+                    }
+                    else
+                    {
+                         out.print("<h2> Registro exitoso :D </h2>");
+                         out.print("Eres el usuario #"+id+" en registrarse");
+                    }
+                }
+                
+               
             } catch (Exception e) {
                 
                 out.print("Algo salio mal");
