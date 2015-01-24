@@ -32,7 +32,7 @@ public class serv extends JFrame implements ActionListener {
 
     public serv() {
 
-        System.out.println("Aguantalas...");
+        System.out.println("Andamos en la parte de los servlets");
 
         
         content.setBounds(100, 100, 600, 500);

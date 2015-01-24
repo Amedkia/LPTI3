@@ -46,7 +46,7 @@ public class Calculadora extends JFrame implements ActionListener {
 
     public Calculadora() {
 
-        System.out.println("Aguantalas...");
+        System.out.println("Andamos en la calculadora");
 
         
         content.setBounds(100, 100, 600, 500);

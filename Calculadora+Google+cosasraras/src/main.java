@@ -22,7 +22,7 @@ public class main {
             @Override
             public void run() {
                 System.out.println("a punto...");
-                Vista.serv calc = new Vista.serv();
+                Vista.login calc = new Vista.login();
             }
 
         });
