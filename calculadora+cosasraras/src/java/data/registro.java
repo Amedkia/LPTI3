@@ -45,12 +45,18 @@ public class registro extends HttpServlet {
             String p = request.getParameter("pww");
             String a = request.getParameter("apodo");
             
+               Crypto.Crypter16914 cryp = new Crypto.Crypter16914(); //Clase que cifra mediante cifrado cesar Distinguiendo Mayusculas de Minusculas
+            
+            String u_cryp = cryp.code(u);
+            String p_cryp = cryp.code(p);
+            String a_cryp = cryp.code(a);
+            
             BD.cDatos sql = new BD.cDatos();
             
             try {
                 sql.conectar();
                 
-                ResultSet rs = sql.consulta("call sp_alta('"+u+"','"+p+"','"+a+"')");
+                ResultSet rs = sql.consulta("call sp_alta('"+u_cryp+"','"+p_cryp+"','"+a_cryp+"')");
                 
                 if(rs.next())
                 {

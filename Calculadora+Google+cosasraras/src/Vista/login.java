@@ -92,9 +92,18 @@ public class login extends JFrame implements ActionListener {
         {
             String u = usr.getText();
             String p = pwd.getText();
-            logic.login entra = new logic.login();
             
-            boolean ok = entra.ingresa(u,p);
+            Crypto.Crypter16914 cryp = new Crypto.Crypter16914(); //Clase que cifra mediante cifrado cesar Distinguiendo Mayusculas de Minusculas
+            
+            String u_cryp = cryp.code(u);
+            String p_cryp = cryp.code(p);
+            
+            
+            
+            
+            logic.login entra = new logic.login(); //clase que prueba el nombre y la contraseña
+            
+            boolean ok = entra.ingresa(u_cryp,p_cryp);
             
             if(ok)
             {
