@@ -7,8 +7,6 @@ package data;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author system
  */
-@WebServlet(name = "Login_Serv", urlPatterns = {"/Login_Serv"})
-public class Login_Serv extends HttpServlet {
+@WebServlet(name = "registro", urlPatterns = {"/registro"})
+public class registro extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,36 +34,29 @@ public class Login_Serv extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
-            String uss = request.getParameter("usr");
-            String pss = request.getParameter("pwd");
+            
+            out.print("<head>");
+            out.print("<title>");
+            out.print("Notificacion");
+            out.print("</title>");
+            out.print("</head>");
+            String u = request.getParameter("uss");
+            String p = request.getParameter("pww");
+            String a = request.getParameter("apodo");
             
             BD.cDatos sql = new BD.cDatos();
             
-             out.print("<raiz>");
-            
-            try
-            {
+            try {
                 sql.conectar();
                 
-                ResultSet rs = sql.consulta("call sp_login('"+uss+"','"+pss+"')");
+                sql.consulta("call sp_alta('"+u+"','"+p+"','"+a+"')");
                 
-               
-                if(rs.next())
-                {
-                    out.print("<log>");
-                    out.print(rs.getString("login"));
-                    out.print("</log>");
-                }
+                out.print("<h2> Registro exitoso :D </h2>");
+            } catch (Exception e) {
                 
-                sql.cierraConexion();
-                
+                out.print("Algo salio mal");
             }
-            catch(SQLException e)
-            {
-                
-            }
-            out.print("</raiz>");
+            
         }
     }
 
