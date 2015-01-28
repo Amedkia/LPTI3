@@ -1,0 +1,29 @@
+body
+{
+    background-color: #468a23;
+    color: white;
+    
+}
+h1
+{
+    transition: color 2s;
+    transition: font-size .2s;
+    color: white;
+    text-align: center;
+    
+}
+h1:hover
+{
+    color: yellow;
+    font-size: 30px;
+    text-align: center;
+}
+div
+{
+    border: 2px;
+    border-color: black;
+    border-radius: 4px;
+    padding: 6px;
+    background: #46ba23;
+}
+
