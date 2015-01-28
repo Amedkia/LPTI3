@@ -10,8 +10,6 @@ import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author system
  */
-@WebServlet(name = "login", urlPatterns = {"/login"})
-public class login extends HttpServlet {
+@WebServlet(name = "aprueba", urlPatterns = {"/aprueba"})
+public class aprueba extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +37,6 @@ public class login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
             String uss = request.getParameter("usr");
             String pss = request.getParameter("pwd");
             String uss_cryp = null;
@@ -53,33 +50,25 @@ public class login extends HttpServlet {
             } catch (NoSuchAlgorithmException ex) {
                 System.out.println(ex.toString());
             }
-
-            String log = null;
-
             BD.cDatos sql = new BD.cDatos();
-
-            try {
+            
+          
+            
+             try {
                 sql.conectar();
 
-                ResultSet rs = sql.consulta("call sp_login('" + uss_cryp + "','" + pss_cryp + "')");
+                ResultSet rs = sql.consulta("call sp_aprobar('" + uss_cryp + "','" + pss_cryp + "')");
 
                 if (rs.next()) {
+                    out.print("<link href=\"CSS/base.css\" rel=\"stylesheet\" type=\"text/css\"/>");
 
-                    log = rs.getString("login");
+                  out.print("<h1>"+rs.getString("login")+"<h1>");
                 }
 
                 sql.cierraConexion();
 
             } catch (SQLException ex) {
                 System.out.println("SQL ERROR: " + ex.toString());
-            }
-
-            if (log.equals("1")) {
-                response.sendRedirect("/AIDA/menu.html");
-            }
-            else
-            {
-                response.sendRedirect("./");
             }
         }
     }
