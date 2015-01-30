@@ -38,15 +38,15 @@ public class aprueba extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String uss = request.getParameter("usr");
-            String pss = request.getParameter("pwd");
+           
             String uss_cryp = null;
-            String pss_cryp = null;
+           
 
             Crypto.cSeguridad secure = new Crypto.cSeguridad();
 
             try {
                 uss_cryp = secure.cifrarSHA1(uss);
-                pss_cryp = secure.cifrarSHA1(pss);
+               
             } catch (NoSuchAlgorithmException ex) {
                 System.out.println(ex.toString());
             }
@@ -57,12 +57,14 @@ public class aprueba extends HttpServlet {
              try {
                 sql.conectar();
 
-                ResultSet rs = sql.consulta("call sp_aprobar('" + uss_cryp + "','" + pss_cryp + "')");
+                ResultSet rs = sql.consulta("call sp_aprobar('" + uss_cryp + "')");
 
                 if (rs.next()) {
                     out.print("<link href=\"CSS/base.css\" rel=\"stylesheet\" type=\"text/css\"/>");
 
                   out.print("<h1>"+rs.getString("login")+"<h1>");
+                  
+                    response.sendRedirect("./");
                 }
 
                 sql.cierraConexion();

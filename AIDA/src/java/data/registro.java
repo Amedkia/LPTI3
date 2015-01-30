@@ -5,7 +5,6 @@ package data;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -37,13 +36,27 @@ public class registro extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+
             String uss = request.getParameter("usr");
             String pss = request.getParameter("pwd");
+
+            String nombre = request.getParameter("nombre");
+            String ap = request.getParameter("ap");
+            String am = request.getParameter("am");
+
+            String mail = request.getParameter("mail");
+            
+            Crypto.cSeguridad secure = new Crypto.cSeguridad();
+            Crypto.Crypter16914 ROT = new Crypto.Crypter16914();
+
             String uss_cryp = null;
             String pss_cryp = null;
+            String nombre_cryp = ROT.code(nombre);
+            String ap_cryp = ROT.code(ap);
+            String am_cryp = ROT.code(am);
+            String mail_cryp = ROT.code(mail);
 
-            Crypto.cSeguridad secure = new Crypto.cSeguridad();
+            
 
             try {
                 uss_cryp = secure.cifrarSHA1(uss);
@@ -59,7 +72,7 @@ public class registro extends HttpServlet {
             try {
                 sql.conectar();
 
-                ResultSet rs = sql.consulta("call sp_alta('" + uss_cryp + "','" + pss_cryp + "')");
+                ResultSet rs = sql.consulta("call sp_alta('" + uss_cryp + "','" + pss_cryp + "','" + nombre_cryp + "','" + ap_cryp + "','" + am_cryp + "','" + mail_cryp + "')");
 
                 if (rs.next()) {
 
@@ -72,12 +85,11 @@ public class registro extends HttpServlet {
                 System.out.println("SQL ERROR: " + ex.toString());
             }
 
-           out.print(res);
-           
-           response.sendRedirect("./");
+            out.print(res);
+
+            response.sendRedirect("./");
         }
     }
-       
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
