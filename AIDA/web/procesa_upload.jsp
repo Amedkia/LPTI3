@@ -22,7 +22,8 @@
 
     if (session.getAttribute("usr") != null) {
 String name = null;
-String ubicacionArchivo = "/home/system/NetBeansProjects/LPTI3/AIDA/web/files";
+//String ubicacionArchivo = "/home/system/NetBeansProjects/LPTI3/AIDA/web/files"; //para la casa
+String ubicacionArchivo = "C://Users/Alumno/Documents/NetBeansProjects/LPTI3/AIDA/web/files"; //para la escuela
             //Esta ruta se debe de cambiar a donde este la carpeta profile_images del pryecto, es ideal si esta en un servidor ya que la ruta seria fija
             DiskFileItemFactory factory = new DiskFileItemFactory();
             factory.setSizeThreshold(1024);
@@ -59,7 +60,7 @@ String ubicacionArchivo = "/home/system/NetBeansProjects/LPTI3/AIDA/web/files";
             }
             function og()
             {
-                setTimeout(go(),5000);
+                setTimeout(go(),10000);
             }
           
         </script>
