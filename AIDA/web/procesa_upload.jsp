@@ -4,6 +4,8 @@
     Author     : system
 --%>
 
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page import="org.apache.commons.fileupload.FileUploadException"%>
 <%@page import="org.apache.commons.fileupload.FileItem"%>
 <%@page import="org.apache.commons.fileupload.FileItem"%>
@@ -16,14 +18,25 @@
 
 
 <%
+     
     if (session.getAttribute("usr") == null) {
         response.sendError(403);
     }
 
     if (session.getAttribute("usr") != null) {
+        
+       
+        String usr = (String) session.getAttribute("usr");
+        String pwd = (String) session.getAttribute("pwd");
+        
+         BD.cDatos sql = new BD.cDatos();
+
+       
+        
+        
 String name = null;
-//String ubicacionArchivo = "/home/system/NetBeansProjects/LPTI3/AIDA/web/files"; //para la casa
-String ubicacionArchivo = "C://Users/Alumno/Documents/NetBeansProjects/LPTI3/AIDA/web/files"; //para la escuela
+String ubicacionArchivo = "/home/system/NetBeansProjects/LPTI3/AIDA/web/files"; //para la casa
+//String ubicacionArchivo = "C://Users/Alumno/Documents/NetBeansProjects/LPTI3/AIDA/web/files"; //para la escuela
             //Esta ruta se debe de cambiar a donde este la carpeta profile_images del pryecto, es ideal si esta en un servidor ya que la ruta seria fija
             DiskFileItemFactory factory = new DiskFileItemFactory();
             factory.setSizeThreshold(1024);
@@ -45,6 +58,25 @@ String ubicacionArchivo = "C://Users/Alumno/Documents/NetBeansProjects/LPTI3/AID
             } catch (FileUploadException ex) {
                 out.write("Error al subir archivo " + ex.getMessage());
             }
+            
+            
+             try {
+            sql.conectar();
+            
+           
+            String date = request.getParameter("fecha");
+
+            ResultSet rs = sql.consulta("call sp_alta_doc('" + usr + "','" + pwd + "','" + name + "','" + date + "')");
+
+          
+
+            sql.cierraConexion();
+
+        } catch (SQLException ex) {
+            System.out.println("SQL ERROR: " + ex.toString());
+        }
+        
+            
     }
             
     

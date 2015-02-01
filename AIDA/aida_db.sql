@@ -104,12 +104,18 @@ delimiter ;
 
 delimiter //
 
-create procedure sp_alta_doc (usr_in nvarchar(100),nivel_in int(2))
+create procedure sp_alta_doc (usr_in nvarchar(100),pwd_in nvarchar(100),nombre_doc_in nvarchar(100),fecha_limite_in nvarchar(50))
 begin
 
-UPDATE tbl_login SET nivel=nivel_in where usr = usr_in;
+declare id_usr_calc int(10);
+declare url varchar(100);
 
-select "Se ha modificado el tipo de usuario a nivel" + nivel_in as login;
+set url = "http://localhost:56195/AIDA/files/"+nombre_doc_in;
+set id_usr_calc = (SELECT id_usr FROM tbl_login WHERE usr = usr_in and pwd = pwd_in);
+
+INSERT INTO tbl_doc VALUES (id_usr_calc,nombre_doc_in,url,current_time,fecha_limite_in);
+
+select "ok" as ok;
 end //
 delimiter ;
 

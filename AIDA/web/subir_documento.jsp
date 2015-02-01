@@ -25,6 +25,7 @@
     <body>
         <form action="procesa_upload.jsp" method="post" enctype="multipart/form-data">
             <input type="file" name="file"/>
+            <input type="date" name="fecha">
             <br>
             <input type="submit" value="Subir archivo" />
         </form> 
