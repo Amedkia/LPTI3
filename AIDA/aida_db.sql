@@ -15,6 +15,7 @@ nivel int(2),
 aprobado int(2)
 );
 
+
 create table tbl_doc(
 id_usr int (10),
 nombre varchar(100),
@@ -104,16 +105,16 @@ delimiter ;
 
 delimiter //
 
-create procedure sp_alta_doc (usr_in nvarchar(100),pwd_in nvarchar(100),nombre_doc_in nvarchar(100),fecha_limite_in nvarchar(50))
+create procedure sp_alta_doc (usr_in nvarchar(100),pwd_in nvarchar(100),nombre_doc_in nvarchar(100))
 begin
 
 declare id_usr_calc int(10);
 declare url varchar(100);
 
-set url = "http://localhost:56195/AIDA/files/"+nombre_doc_in;
+set url = (concat('http://localhost:56195/AIDA/files/',nombre_doc_in));
 set id_usr_calc = (SELECT id_usr FROM tbl_login WHERE usr = usr_in and pwd = pwd_in);
 
-INSERT INTO tbl_doc VALUES (id_usr_calc,nombre_doc_in,url,current_time,fecha_limite_in);
+INSERT INTO tbl_doc VALUES (id_usr_calc,nombre_doc_in,url,current_time,null);
 
 select "ok" as ok;
 end //
